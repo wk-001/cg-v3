@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.0.167:3306/changgou_goods?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8&useSSL=false&rewriteBatchedStatements=true
+    username: root
+    password: 123456

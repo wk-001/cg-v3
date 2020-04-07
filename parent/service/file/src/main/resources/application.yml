@@ -1,0 +1,20 @@
+spring:
+  servlet:
+    multipart:
+      #上传文件大小
+      max-file-size: 10MB
+      #请求数据大小
+      max-request-size: 10MB
+  application:
+    name: file
+server:
+  port: 18082
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:7001/eureka
+  instance:
+    prefer-ip-address: true
+feign:
+  hystrix:
+    enabled: true

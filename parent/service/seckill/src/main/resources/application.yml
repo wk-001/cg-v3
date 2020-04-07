@@ -1,0 +1,53 @@
+server:
+  port: 18091
+spring:
+  application:
+    name: seckill
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.0.167:3306/changgou_seckill?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&serverTimezone=GMT%2B8
+    username: root
+    password: 123456
+  redis:
+    host: 192.168.0.167
+    port: 6379
+  rabbitmq:
+    host: 192.168.0.167 #mq的服务器地址
+    username: guest #账号
+    password: guest #密码
+  main:
+    allow-bean-definition-overriding: true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:7001/eureka
+  instance:
+    prefer-ip-address: true
+feign:
+  hystrix:
+    enabled: true
+#hystrix 配置
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          #如果enabled设置为false，则请求超时交给ribbon控制
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 10000
+          strategy: SEMAPHORE
+
+#发送支付结果的交换机和队列
+mq:
+  pay:
+    #消息发送到哪个交换机
+    exchange:
+      seckillOrder: exchange.seckillOrder
+    #队列名称
+    queue:
+      seckillOrder: queue.seckillOrder
+    #路由名称
+    routing:
+      seckillKey: queue.seckillOrder

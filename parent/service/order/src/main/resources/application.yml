@@ -1,0 +1,51 @@
+server:
+  port: 18089
+spring:
+  application:
+    name: order
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.0.167:3306/changgou_order?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    username: root
+    password: 123456
+  redis:
+    host: 192.168.0.167
+    port: 6379
+  rabbitmq:
+    host: 192.168.0.167
+    port: 5672
+    username: guest
+    password: guest
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    alibaba:
+      seata:
+        tx-service-group: my_test_tx_group
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:7001/eureka
+  instance:
+    prefer-ip-address: true
+#开启feign的熔断，默认是线程池隔离 改为信号量隔离
+feign:
+  hystrix:
+    enabled: true
+#hystrix 配置
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          strategy: SEMAPHORE
+
+#位置支付交换机和队列
+mq:
+  pay:
+    exchange:   #消息发送到哪个交换机
+      order: exchange.order
+    queue:    #队列名称
+      order: queue.order
+    routing:    #路由名称
+      key: queue.order
